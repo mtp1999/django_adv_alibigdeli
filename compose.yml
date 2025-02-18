@@ -1,0 +1,13 @@
+services:
+  backend:
+    container_name: django_adv_alibigdeli_backend
+    image: django_adv_alibigdeli_backend
+    build: .
+    ports:
+      - "8000:8000"
+    environment:
+      - DEBUG=True
+      - SECRET_KEY=my-very-secret-key
+    volumes:
+      - ./backend:/app
+    command:  python manage.py runserver 0.0.0.0:8000
