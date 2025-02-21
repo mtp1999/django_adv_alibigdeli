@@ -72,12 +72,13 @@
           <li><a class="nav-link scrollto {% block about_active %}{% endblock %}" href="{% url 'app_blog:about' %}">About</a></li>
           <li><a class="nav-link scrollto {% block blog_active %}{% endblock %}" href="{% url 'app_blog:blog' %}">Blog</a></li>
           <li><a class="nav-link scrollto {% block contact_active %}{% endblock %}" href="{% url 'app_blog:contact' %}">Contact</a></li>
+          <li><a class="nav-link scrollto {% block todo_active %}{% endblock %}" href="{% url 'app_todo:task_list' %}">tasks</a></li>
           {% if request.user.is_authenticated %}
             <li><a class="nav-link scrollto" href="{% url 'app_account:logout' %}">Logout</a></li>
               <li class="nav-link scrollto">{{ request.user.username }}</li>
           {% else %}
             <li><a class="nav-link scrollto" href="{% url 'app_account:login' %}">Login</a></li>
-            <li><a class="nav-link scrollto" href="{% url 'app_account:signup' %}">Sign Up</a></li>
+{#            <li><a class="nav-link scrollto" href="{% url 'app_account:signup' %}">Sign Up</a></li>#}
         {% endif %}
         </ul>
         <i class="bi bi-list mobile-nav-toggle"></i>
@@ -91,10 +92,6 @@
     <br>
   {% block content %}
   {% endblock %}
-
-
-
-
 
 
   <!-- ======= Footer ======= -->

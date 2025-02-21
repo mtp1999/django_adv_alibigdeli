@@ -6,9 +6,9 @@ from app_account import views
 app_name = 'app_account'
 
 urlpatterns = [
-    path('login/', views.login_view, name='login'),
-    path('signup/', views.signup_view, name='signup'),
-    path('logout/', views.logout_view, name='logout'),
+    path('login/', views.LogInView.as_view(), name='login'),
+    path('logout/', views.LogoutView.as_view(), name='logout'),
+    # path('signup/', views.signup_view, name='signup'),
 ]
 
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

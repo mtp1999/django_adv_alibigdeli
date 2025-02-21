@@ -1,35 +1,39 @@
 from django.db import models
-from django.contrib.auth.models import User
 from django.urls import reverse
 from taggit.managers import TaggableManager
+from app_account.models import Profile
 
 
 class Post(models.Model):
-    class Meta:
-        db_table = 'app_blog_post'
     title = models.CharField(max_length=50)
     content = models.TextField()
-    author = models.ForeignKey(User, on_delete=models.CASCADE)
+    author = models.ForeignKey(Profile, on_delete=models.CASCADE)
+    created_date = models.DateTimeField(auto_now_add=True)
+    updated_date = models.DateTimeField(auto_now=True)
     published_date = models.DateTimeField()
     status = models.BooleanField(default=False)
     views = models.IntegerField(default=0)
-    image = models.ImageField(upload_to='appBlog/posts/images/', default='default.jpg')
-    categories = models.ManyToManyField('Category', db_table='appBlog_post_category')
+    image = models.ImageField(upload_to='app_blog/posts/images/', default='default.jpg')
+    categories = models.ManyToManyField('Category', db_table='app_blog_post_category')
     tags = TaggableManager()
+
+    class Meta:
+        db_table = 'app_blog_post'
 
     def __str__(self):
         return str(self.id) + '-' + self.title
 
     def get_absolute_url(self):
-        return reverse('appBlog:single', kwargs={'pid': self.id})
+        return reverse('app_blog:single', kwargs={'pid': self.id})
 
 
 class Category(models.Model):
+    name = models.CharField(max_length=100)
+
     class Meta:
         db_table = 'app_blog_category'
         verbose_name = 'category'
         verbose_name_plural = 'categories'
-    name = models.CharField(max_length=100)
 
     def __str__(self):
         return self.name

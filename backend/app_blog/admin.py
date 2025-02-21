@@ -8,14 +8,14 @@ class PostAdmin(SummernoteModelAdmin):
 
 
 @admin.register(Post)
-class ContactAdmin(admin.ModelAdmin):
+class PostAdmin(admin.ModelAdmin):
     list_display = ['id', 'title', 'author', 'published_date', 'status']
     list_filter = ['author', 'status']
     list_display_links = ['id', 'title']
 
 
 @admin.register(Category)
-class ContactAdmin(admin.ModelAdmin):
+class CategoryAdmin(admin.ModelAdmin):
     list_display = ['id', 'name']
     list_display_links = ['id', 'name']
 

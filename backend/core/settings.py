@@ -49,6 +49,7 @@ INSTALLED_APPS = [
 
     'app_blog',
     'app_account',
+    'app_todo',
 ]
 
 
@@ -153,5 +154,5 @@ STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
 )
 
-
-
+# using custom user model
+AUTH_USER_MODEL = "app_account.User"

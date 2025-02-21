@@ -27,6 +27,7 @@ sitemaps = {
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('app_blog.urls')),
+    path('tasks/', include('app_todo.urls')),
     path(
         "sitemap.xml",
         sitemap,
