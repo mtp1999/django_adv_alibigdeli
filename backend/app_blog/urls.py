@@ -1,4 +1,4 @@
-from django.urls import path
+from django.urls import path, include
 from app_blog import views
 from django.conf import settings
 from django.conf.urls.static import static
@@ -16,7 +16,9 @@ urlpatterns = [
     path('contact/', views.contact_view, name='contact'),
     path('about/', views.about_view, name='about'),
     path('rss/feed/', LatestEntriesFeed()),
+    path('blog/api/v1/', include('app_blog.api.v1.urls')),
 ]
 
-urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
-urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+if settings.DEBUG:
+    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

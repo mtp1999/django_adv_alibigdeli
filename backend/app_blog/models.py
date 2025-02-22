@@ -2,6 +2,7 @@ from django.db import models
 from django.urls import reverse
 from taggit.managers import TaggableManager
 from app_account.models import Profile
+from django.utils.timezone import now
 
 
 class Post(models.Model):
@@ -10,12 +11,12 @@ class Post(models.Model):
     author = models.ForeignKey(Profile, on_delete=models.CASCADE)
     created_date = models.DateTimeField(auto_now_add=True)
     updated_date = models.DateTimeField(auto_now=True)
-    published_date = models.DateTimeField()
+    published_date = models.DateTimeField(default=now)
     status = models.BooleanField(default=False)
     views = models.IntegerField(default=0)
-    image = models.ImageField(upload_to='app_blog/posts/images/', default='default.jpg')
+    image = models.ImageField(upload_to='app_blog/posts/images/', null=True, blank=True)
     categories = models.ManyToManyField('Category', db_table='app_blog_post_category')
-    tags = TaggableManager()
+    tags = TaggableManager(blank=True)
 
     class Meta:
         db_table = 'app_blog_post'

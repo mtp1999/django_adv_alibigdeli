@@ -40,7 +40,11 @@
             <article class="entry">
 
               <div class="entry-img">
-                <img src="{{ post.image.url }}" alt="{{ post.title }}" class="img-fluid">
+                  {% if post.image %}
+                    <img src="{{ post.image.url }}" alt="{{ post.title }}" class="img-fluid">
+                  {% else %}
+                      <img src="{% static 'images/default.jpg' %}" alt="{{ post.title }}" class="img-fluid">
+                  {% endif %}
               </div>
 
               <h2 class="entry-title">

@@ -40,5 +40,5 @@ urlpatterns = [
     path('captcha/', include('captcha.urls')),
     path('accounts/', include('app_account.urls')),
     path('accounts/', include('django.contrib.auth.urls')),
-
+    path('api-auth/', include('rest_framework.urls')),
 ]
