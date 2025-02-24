@@ -27,6 +27,9 @@ class Post(models.Model):
     def get_absolute_url(self):
         return reverse('app_blog:single', kwargs={'pid': self.id})
 
+    def get_absolute_api_url(self):
+        return reverse('app_blog:api_v1:post-detail', kwargs={'pk': self.id})
+
 
 class Category(models.Model):
     name = models.CharField(max_length=100)

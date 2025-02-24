@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'django_summernote',
     'captcha',
     'rest_framework',
+    'django_filters',
 
     'app_blog',
     'app_account',
