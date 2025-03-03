@@ -17,12 +17,14 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from django.contrib.sitemaps.views import sitemap
+from drf_spectacular.views import SpectacularAPIView, SpectacularRedocView, SpectacularSwaggerView
 from app_blog.sitemaps import BlogSitemap, StaticViewSitemap
 
 sitemaps = {
     'blog': BlogSitemap,
     "static": StaticViewSitemap,
 }
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -41,4 +43,9 @@ urlpatterns = [
     path('accounts/', include('app_account.urls')),
     path('accounts/', include('django.contrib.auth.urls')),
     path('api-auth/', include('rest_framework.urls')),
+
+    # api documents
+    path('api/schema/', SpectacularAPIView.as_view(), name='schema'),
+    path('api/schema/swagger-ui/', SpectacularSwaggerView.as_view(url_name='schema'), name='swagger-ui'),
+    path('api/schema/redoc/', SpectacularRedocView.as_view(url_name='schema'), name='redoc'),
 ]

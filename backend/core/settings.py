@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'captcha',
     'rest_framework',
     'django_filters',
+    'drf_spectacular',
 
     'app_blog',
     'app_account',
@@ -158,3 +159,9 @@ STATICFILES_FINDERS = (
 
 # using custom user model
 AUTH_USER_MODEL = "app_account.User"
+
+REST_FRAMEWORK = {
+    # YOUR SETTINGS
+    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
+}
+
