@@ -1,4 +1,4 @@
-from django.urls import path
+from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 from app_account import views
@@ -9,6 +9,7 @@ urlpatterns = [
     path('login/', views.LogInView.as_view(), name='login'),
     path('logout/', views.LogoutView.as_view(), name='logout'),
     # path('signup/', views.signup_view, name='signup'),
+    path('api/v1/', include('app_account.api.v1.urls')),
 ]
 
 if settings.DEBUG:

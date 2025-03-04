@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'django_summernote',
     'captcha',
     'rest_framework',
+    'rest_framework.authtoken',
     'django_filters',
     'drf_spectacular',
 
@@ -163,5 +164,10 @@ AUTH_USER_MODEL = "app_account.User"
 REST_FRAMEWORK = {
     # YOUR SETTINGS
     'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.BasicAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.TokenAuthentication',
+    ],
 }
 
