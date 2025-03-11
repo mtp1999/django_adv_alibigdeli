@@ -11,13 +11,14 @@ class CustomUserAdmin(UserAdmin):
         "is_staff",
         "is_superuser",
         "is_active",
+        "is_verified",
         "created_date",
     )
     list_display_links = (
         "id",
         "email",
     )
-    list_filter = ("email", "is_staff", "is_active", "is_superuser")
+    list_filter = ("email", "is_staff", "is_active", "is_superuser", "is_verified")
     fieldsets = (
         ("Basic Information", {"fields": ("email", "password")}),
         (
@@ -27,6 +28,7 @@ class CustomUserAdmin(UserAdmin):
                     "is_staff",
                     "is_active",
                     "is_superuser",
+                    "is_verified",
                     "groups",
                     "user_permissions",
                 )
@@ -52,7 +54,7 @@ class CustomUserAdmin(UserAdmin):
             },
         ),
     )
-    search_fields = ("email", "is_staff", "is_active", "is_superuser")
+    search_fields = ("email", "is_staff", "is_active", "is_superuser", "is_verified")
     ordering = (
         "pk",
         "email",

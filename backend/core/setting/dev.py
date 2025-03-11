@@ -1,7 +1,7 @@
 from core.settings import *
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = env("SECRET_KEY", default="unsafe-secret-key")
+SECRET_KEY = env("SECRET_KEY", default="test")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = env.bool("DEBUG", default=False)
@@ -40,4 +40,9 @@ SITE_ID = 2
 
 # using this in development mode
 # we use smtp service in production mode
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_USE_TLS = False
+EMAIL_HOST = 'smtp4dev'  # if using a service in docker compose
+EMAIL_PORT = 25
+EMAIL_HOST_USER = ''
+EMAIL_HOST_PASSWORD = ''

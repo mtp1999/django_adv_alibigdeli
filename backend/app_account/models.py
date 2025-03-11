@@ -34,11 +34,14 @@ class UserManager(BaseUserManager):
         extra_fields.setdefault("is_staff", True)
         extra_fields.setdefault("is_superuser", True)
         extra_fields.setdefault("is_active", True)
+        extra_fields.setdefault("is_verified", True)
 
         if extra_fields.get("is_staff") is not True:
             raise ValueError(_("Superuser must have is_staff=True."))
         if extra_fields.get("is_superuser") is not True:
             raise ValueError(_("Superuser must have is_superuser=True."))
+        if extra_fields.get("is_verified") is not True:
+            raise ValueError(_("Superuser must have is_verified=True."))
         return self.create_user(email, password, **extra_fields)
 
 
@@ -47,7 +50,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     is_staff = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
     is_superuser = models.BooleanField(default=False)
-    # is_verified = models.BooleanField(default=False)
+    is_verified = models.BooleanField(default=False)
 
     REQUIRED_FIELDS = []
     USERNAME_FIELD = "email"
@@ -64,6 +67,9 @@ class User(AbstractBaseUser, PermissionsMixin):
 class Profile(models.Model):
     user = models.OneToOneField("User", on_delete=models.CASCADE, primary_key=True)
     username = models.CharField(max_length=100, unique=True, null=True, blank=True)
+    first_name = models.CharField(max_length=255, null=True, blank=True)
+    last_name = models.CharField(max_length=255, null=True, blank=True)
+    description = models.TextField(null=True, blank=True)
 
     def __str__(self):
         return self.user.email

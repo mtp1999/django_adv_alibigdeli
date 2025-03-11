@@ -48,8 +48,10 @@ INSTALLED_APPS = [
     'captcha',
     'rest_framework',
     'rest_framework.authtoken',
+    'rest_framework_simplejwt',
     'django_filters',
     'drf_spectacular',
+    'mail_templated',
 
     'app_blog',
     'app_account',
@@ -168,6 +170,7 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.BasicAuthentication',
         'rest_framework.authentication.SessionAuthentication',
         'rest_framework.authentication.TokenAuthentication',
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
     ],
 }
 
