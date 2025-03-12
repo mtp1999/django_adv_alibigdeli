@@ -51,12 +51,18 @@ from rest_framework import filters
 
 
 class PostViewSet(viewsets.ModelViewSet):
-    permission_classes = [permissions.IsAuthenticatedOrReadOnly, PostModelIsOwnerOrReadOnly]
+    permission_classes = [
+        permissions.IsAuthenticatedOrReadOnly,
+        PostModelIsOwnerOrReadOnly,
+    ]
     serializer_class = PostSer
     queryset = Post.objects.all()
-    filter_backends = [DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter]
-    filterset_fields = ['categories', 'author', 'status']
-    search_fields = ['title']
-    ordering_fields = ['published_date']
+    filter_backends = [
+        DjangoFilterBackend,
+        filters.SearchFilter,
+        filters.OrderingFilter,
+    ]
+    filterset_fields = ["categories", "author", "status"]
+    search_fields = ["title"]
+    ordering_fields = ["published_date"]
     pagination_class = PostPagination
-

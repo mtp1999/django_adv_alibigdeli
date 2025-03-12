@@ -41,4 +41,4 @@ class TaskDelete(LoginRequiredMixin, DeleteView):
         return redirect(self.success_url)
 
     def get_queryset(self):
-        return Task.objects.filter(pk=self.kwargs.get('pk'))
+        return Task.objects.filter(pk=self.kwargs.get("pk"))

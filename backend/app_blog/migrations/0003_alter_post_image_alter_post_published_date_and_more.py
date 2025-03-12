@@ -8,24 +8,32 @@ import taggit.managers
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('taggit', '0005_auto_20220424_2025'),
-        ('app_blog', '0002_alter_post_author'),
+        ("taggit", "0005_auto_20220424_2025"),
+        ("app_blog", "0002_alter_post_author"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='post',
-            name='image',
-            field=models.ImageField(blank=True, null=True, upload_to='app_blog/posts/images/'),
+            model_name="post",
+            name="image",
+            field=models.ImageField(
+                blank=True, null=True, upload_to="app_blog/posts/images/"
+            ),
         ),
         migrations.AlterField(
-            model_name='post',
-            name='published_date',
+            model_name="post",
+            name="published_date",
             field=models.DateTimeField(default=django.utils.timezone.now),
         ),
         migrations.AlterField(
-            model_name='post',
-            name='tags',
-            field=taggit.managers.TaggableManager(blank=True, help_text='A comma-separated list of tags.', through='taggit.TaggedItem', to='taggit.Tag', verbose_name='Tags'),
+            model_name="post",
+            name="tags",
+            field=taggit.managers.TaggableManager(
+                blank=True,
+                help_text="A comma-separated list of tags.",
+                through="taggit.TaggedItem",
+                to="taggit.Tag",
+                verbose_name="Tags",
+            ),
         ),
     ]

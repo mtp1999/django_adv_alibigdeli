@@ -14,14 +14,16 @@ class LogInView(LoginView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['form'] = LoginForm
+        context["form"] = LoginForm
         return context
 
     def post(self, request, *args, **kwargs):
         form = LoginForm(request.POST)
         if form.is_valid():
             user = authenticate(
-                request, email=form.cleaned_data['email'], password=form.cleaned_data['password']
+                request,
+                email=form.cleaned_data["email"],
+                password=form.cleaned_data["password"],
             )
             if user is not None:
                 login(request, user)
@@ -66,4 +68,3 @@ class LogoutView(View):
 #             return redirect('app_account:signup')
 #
 #     return render(request, 'app_account/signup.html', {'form': CostumeUserCreationForm()})
-

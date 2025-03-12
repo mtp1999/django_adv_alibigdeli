@@ -2,7 +2,7 @@
 from app_blog.api.v1 import views
 from rest_framework.routers import DefaultRouter
 
-app_name = 'api_v1'
+app_name = "api_v1"
 
 urlpatterns = [
     # path('posts/', views.PostViewSet.as_view({'get': 'list', 'post': 'create'})),
@@ -10,5 +10,5 @@ urlpatterns = [
 ]
 
 router = DefaultRouter()
-router.register(r'post', views.PostViewSet, basename='post')
+router.register(r"post", views.PostViewSet, basename="post")
 urlpatterns += router.urls
