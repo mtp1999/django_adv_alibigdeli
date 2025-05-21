@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     "django_filters",
     "drf_spectacular",
     "mail_templated",
+    'django_celery_beat',
     "app_blog",
     "app_account",
     "app_todo",
@@ -111,7 +112,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = "en-us"
 
-TIME_ZONE = "UTC"
+TIME_ZONE = "Asia/Tehran"
 
 USE_I18N = True
 
@@ -169,3 +170,7 @@ REST_FRAMEWORK = {
         "rest_framework_simplejwt.authentication.JWTAuthentication",
     ],
 }
+
+# celery configs
+CELERY_BROKER_URL = 'redis://redis:6379/0'
+CELERY_TASK_TRACK_STARTED = True

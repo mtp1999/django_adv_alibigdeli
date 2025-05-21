@@ -1,10 +1,12 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.http import HttpResponse
 from django.urls import reverse_lazy
 from django.views.generic.list import ListView
-from django.views.generic.edit import CreateView, UpdateView, DeleteView
+from django.views.generic.edit import CreateView, UpdateView, DeleteView, View
 from django.shortcuts import redirect
 from .forms import TaskForm
 from .models import Task
+from app_todo.tasks import send_email
 
 
 class TaskList(LoginRequiredMixin, ListView):
@@ -42,3 +44,9 @@ class TaskDelete(LoginRequiredMixin, DeleteView):
 
     def get_queryset(self):
         return Task.objects.filter(pk=self.kwargs.get("pk"))
+
+
+class TestSendEmail(View):
+    def get(self, request):
+        send_email.delay()
+        return HttpResponse('<h1>email sending!</h1>')

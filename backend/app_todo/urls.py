@@ -4,6 +4,7 @@ from .views import (
     TaskCreate,
     TaskUpdate,
     TaskDelete,
+    TestSendEmail
 )
 
 app_name = "app_todo"
@@ -14,4 +15,7 @@ urlpatterns = [
     path("tasks/update/<int:pk>/", TaskUpdate.as_view(), name="update_task"),
     path("tasks/delete/<int:pk>/", TaskDelete.as_view(), name="delete_task"),
     path("api/v1/", include("app_todo.api.v1.urls")),
+
+    # test send email using celery
+    path("test-send-email/", TestSendEmail.as_view())
 ]

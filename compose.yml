@@ -11,6 +11,8 @@ services:
     volumes:
       - ./backend:/app
     command:  python manage.py runserver 0.0.0.0:8000
+    depends_on:
+      - redis
 
   smtp4dev:
     container_name: django_adv_alibigdeli_smtp4dev
@@ -32,6 +34,38 @@ services:
 
       #Specifies the server hostname. Used in auto-generated TLS certificate if enabled.
       - ServerOptions__HostName=smtp4dev
+
+  redis:
+    image: redis:7.0
+    container_name: django_adv_alibigdeli_redis
+    restart: always
+    ports:
+      - '6379:6379'
+    command: redis-server --save 60 1 --loglevel warning
+
+  celery_worker1:
+    container_name: django_adv_alibigdeli_celery_worker1
+    image: django_adv_alibigdeli_celery_worker1
+    build: .
+    volumes:
+      - ./backend:/app
+    depends_on:
+      - redis
+      - backend
+    command: celery -A core worker -l INFO
+
+  celery_beat1:
+    container_name: django_adv_alibigdeli_celery_beat1
+    image: django_adv_alibigdeli_celery_beat1
+    build: .
+    volumes:
+      - ./backend:/app
+    depends_on:
+      - redis
+      - backend
+    command: celery -A core beat -l INFO --scheduler django_celery_beat.schedulers:DatabaseScheduler
+
+
 
 volumes:
   smtp4dev-data:
