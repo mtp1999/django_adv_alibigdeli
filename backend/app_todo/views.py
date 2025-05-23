@@ -4,9 +4,12 @@ from django.urls import reverse_lazy
 from django.views.generic.list import ListView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView, View
 from django.shortcuts import redirect
+from django.core.cache import cache
 from .forms import TaskForm
 from .models import Task
 from app_todo.tasks import send_email
+from app_todo.utils import get_random_number
+
 
 
 class TaskList(LoginRequiredMixin, ListView):
@@ -50,3 +53,17 @@ class TestSendEmail(View):
     def get(self, request):
         send_email.delay()
         return HttpResponse('<h1>email sending!</h1>')
+
+
+class TestCache(View):
+    """
+    this view is for testing cache performance.
+    """
+
+    def get(self, request, *args, **kwargs):
+        if n := cache.get("random_number"):
+            return HttpResponse("<h1>number: {}</h1>".format(n))
+
+        n = get_random_number()
+        cache.set("random_number", n)
+        return HttpResponse("<h1>number: {}</h1>".format(n))

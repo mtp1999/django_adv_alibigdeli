@@ -174,3 +174,11 @@ REST_FRAMEWORK = {
 # celery configs
 CELERY_BROKER_URL = 'redis://redis:6379/0'
 CELERY_TASK_TRACK_STARTED = True
+
+# cache services(using redis)
+CACHES = {
+    "default": {
+        "BACKEND": "django.core.cache.backends.redis.RedisCache",
+        "LOCATION": "redis://redis:6379/1",
+    }
+}
