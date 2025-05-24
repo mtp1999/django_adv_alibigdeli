@@ -28,6 +28,7 @@ django-filter==25.1
 django-mail-templated==2.6.5
 django-multi-captcha-admin==2.0.0
 django-ranged-response==0.2.0
+django-redis==5.4.0
 django-robots==5.0
 django-simple-captcha==0.5.18
 django-summernote==0.8.20.0
@@ -45,6 +46,7 @@ Flask-Login==0.6.3
 gevent==24.11.1
 geventhttpclient==2.3.3
 greenlet==3.2.2
+gunicorn==23.0.0
 h11==0.16.0
 idna==3.10
 importlib_metadata==8.6.1

@@ -1,12 +1,14 @@
 from core.settings import *
 
+
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "django-insecure-n4hz7k9$z^)=w$z10t7v6dke_4nyq&hvye4qgs@zt4wn1@7uz!"
+SECRET_KEY = env("SECRET_KEY", default="test")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = env.bool("DEBUG", default=False)
 
-ALLOWED_HOSTS = []
+# ALLOWED_HOSTS = []
+ALLOWED_HOSTS = env.list("ALLOWED_HOSTS", default=["0.0.0.0", "127.0.0.1"])
 
 
 DATABASES = {
@@ -34,7 +36,7 @@ STATIC_URL = "static/"
 MEDIA_URL = "media/"
 MEDIA_ROOT = BASE_DIR / "media"
 
-STATIC_ROOT = ""
+STATIC_ROOT = BASE_DIR / "static_prod"
 
 STATICFILES_DIRS = [BASE_DIR / "static"]
 
@@ -56,5 +58,3 @@ EMAIL_USE_SSL = False
 EMAIL_HOST_USER = ""
 EMAIL_HOST_PASSWORD = ""
 
-COMPRESS_ROOT = ""
-COMPRESS_ENABLED = True

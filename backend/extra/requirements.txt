@@ -46,6 +46,7 @@ Flask-Login==0.6.3
 gevent==24.11.1
 geventhttpclient==2.3.3
 greenlet==3.2.2
+gunicorn==23.0.0
 h11==0.16.0
 idna==3.10
 importlib_metadata==8.6.1

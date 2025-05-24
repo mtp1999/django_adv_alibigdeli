@@ -1,0 +1,88 @@
+services:
+  backend:
+    container_name: django_adv_alibigdeli_backend
+    image: django_adv_alibigdeli_backend
+    build: .
+    ports:
+      - "8000:8000"
+    environment:
+      - DEBUG=False
+      - SECRET_KEY=test
+    volumes:
+      - ./backend:/app
+      - static_volume:/app/static_prod
+      - media_volume:/app/media
+
+    command: gunicorn core.wsgi --bind 0.0.0.0
+    depends_on:
+      - redis
+
+  smtp4dev:
+    container_name: django_adv_alibigdeli_smtp4dev
+    image: rnwood/smtp4dev:v3
+    restart: always
+    ports:
+      # Change the number before : to the port the web interface should be accessible on
+      - '5500:80'
+      # Change the number before : to the port the SMTP server should be accessible on
+      - '25:25'
+      # Change the number before : to the port the IMAP server should be accessible on
+      - '143:143'
+    volumes:
+      # This is where smtp4dev stores the database..
+      - smtp4dev-data:/smtp4dev
+    environment:
+      #Specifies the URLs the web UI will use inside the container.
+      - ServerOptions__Urls=http://*:80
+
+      #Specifies the server hostname. Used in auto-generated TLS certificate if enabled.
+      - ServerOptions__HostName=smtp4dev
+
+  redis:
+    image: redis:7.0
+    container_name: django_adv_alibigdeli_redis
+    restart: always
+    ports:
+      - '6379:6379'
+    command: redis-server --save 60 1 --loglevel warning
+
+  celery_worker1:
+    container_name: django_adv_alibigdeli_celery_worker1
+    image: django_adv_alibigdeli_celery_worker1
+    build: .
+    volumes:
+      - ./backend:/app
+    depends_on:
+      - redis
+      - backend
+    command: celery -A core worker -l INFO
+
+  celery_beat1:
+    container_name: django_adv_alibigdeli_celery_beat1
+    image: django_adv_alibigdeli_celery_beat1
+    build: .
+    volumes:
+      - ./backend:/app
+    depends_on:
+      - redis
+      - backend
+    command: celery -A core beat -l INFO --scheduler django_celery_beat.schedulers:DatabaseScheduler
+
+  nginx:
+    image: nginx:1.25.4
+    container_name: django_adv_alibigdeli_nginx
+    restart: always
+
+    ports:
+      - "81:80"
+    volumes:
+      - ./default.conf:/etc/nginx/conf.d/default.conf
+      - static_volume:/home/app/static
+      - media_volume:/home/app/media
+
+
+
+volumes:
+  smtp4dev-data:
+  static_volume:
+  media_volume:
